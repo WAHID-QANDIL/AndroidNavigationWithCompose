@@ -1,6 +1,7 @@
 package com.wahid.androidnavigationwithcompose
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -11,6 +12,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.wahid.androidnavigationwithcompose.navigation.AppNav
 import com.wahid.androidnavigationwithcompose.ui.theme.AndroidNavigationWithComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,29 +22,17 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AndroidNavigationWithComposeTheme {
+                val navHostController = rememberNavController()
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                    AppNav(
+                        navHostController = navHostController,
+                        modifier = Modifier.padding(innerPadding),
+                        onError = {
+                            Toast.makeText(this,it, Toast.LENGTH_SHORT).show()
+                        }
                     )
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AndroidNavigationWithComposeTheme {
-        Greeting("Android")
     }
 }
