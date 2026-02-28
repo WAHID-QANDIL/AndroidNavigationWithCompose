@@ -18,7 +18,6 @@ val NavType.Companion.UserCredentialsNavType: NavType<UserCredentials>
             bundle.putParcelable(key,value)
         }
 
-        @RequiresApi(Build.VERSION_CODES.TIRAMISU)
         override fun get(
             bundle: SavedState,
             key: String
